@@ -5,10 +5,13 @@
 //  Created by Wayne McFadden on 5/15/14.
 //  Copyright (c) 2014 Wayne McFadden. All rights reserved.
 //
+#import "WCMWorkoutData.h"
+#import "WCMWorkoutDataDoc.h"
 
 #import "WCMMasterViewController.h"
 
 #import "WCMDetailViewController.h"
+
 
 @interface WCMMasterViewController () {
     NSMutableArray *_objects;
@@ -16,6 +19,7 @@
 @end
 
 @implementation WCMMasterViewController
+@synthesize workouts = _workouts;
 
 - (void)awakeFromNib
 {
@@ -28,8 +32,10 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addTapped:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    self.title =@"Workouts";
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,16 +63,29 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    return _workouts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyBasicCell"];
+    
+    WCMWorkoutDataDoc *workout = [self.workouts objectAtIndex:indexPath.row];
+    cell.textLabel.text = workout.data.title;
+    cell.imageView.image = workout.thumbImage;
     return cell;
+}
+
+- (void) addTapped: (id) sender {
+    UIImage *defaultImage = [UIImage imageNamed:@"swim"];
+    WCMWorkoutDataDoc *newDoc = [[WCMWorkoutDataDoc alloc] initWithTitle:@"New Workout" distance:0.0 thumbImage:defaultImage];
+    [_workouts addObject:newDoc];
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_workouts.count-1 inSection:0];
+    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+    [self.tableView insertRowsAtIndexPaths: indexPaths withRowAnimation:YES];
+    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    [self performSegueWithIdentifier:@"MySegue" sender:self];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,10 +99,12 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [_objects removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
+-(void)didMoveToParentViewController:(UIViewController *)parent{
+    [self.tableView reloadData];
+}
+
 
 /*
 // Override to support rearranging the table view.
@@ -103,11 +124,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
-    }
+    WCMDetailViewController *detailController = segue.destinationViewController;
+    WCMWorkoutDataDoc *data = [self.workouts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+    detailController.detailItem = data;
 }
 
 @end

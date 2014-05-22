@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WCMMasterViewController : UITableViewController
-
+@property (strong) NSMutableArray *workouts;
 @end

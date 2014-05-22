@@ -7,15 +7,45 @@
 //
 
 #import "WCMAppDelegate.h"
+#import "WCMWorkoutDataDoc.h"
+#import "WCMMasterViewController.h"
 
 @implementation WCMAppDelegate
 
+BOOL IS_TEST_MODE=YES;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    
+    
+    NSMutableArray *workouts = [self loadBootstrapWorkoutData];
+    UINavigationController *navController = (UINavigationController *
+                                             )  self.window.rootViewController;
+    WCMMasterViewController *masterController  =  [navController.viewControllers objectAtIndex:0];
+    masterController.workouts = workouts;
+    
     return YES;
 }
-							
+
+
+
+- (NSMutableArray *) loadBootstrapWorkoutData {
+    
+    NSMutableArray *workouts = [[NSMutableArray alloc] initWithCapacity: 10];
+    
+   // if (IS_TEST_MODE) {
+        WCMWorkoutDataDoc *workout1 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run" distance:17.5 thumbImage:[UIImage imageNamed:@"run.png"]];
+        WCMWorkoutDataDoc *workout2 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:27.5 thumbImage:[UIImage imageNamed:@"bike.png"]];
+        
+        WCMWorkoutDataDoc *workout3 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 thumbImage:[UIImage imageNamed:@"bike.png"]];
+        WCMWorkoutDataDoc *workout4 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 thumbImage:[UIImage imageNamed:@"bike.png"]];
+        workouts = [NSMutableArray arrayWithObjects:workout1, workout2, workout3, workout4, nil];
+    //}
+    
+    return workouts;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

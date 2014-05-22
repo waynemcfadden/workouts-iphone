@@ -22,6 +22,14 @@
 		BE315F18192529D7008B0C41 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE315EF7192529D7008B0C41 /* UIKit.framework */; };
 		BE315F20192529D7008B0C41 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE315F1E192529D7008B0C41 /* InfoPlist.strings */; };
 		BE315F22192529D7008B0C41 /* ListDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BE315F21192529D7008B0C41 /* ListDemoTests.m */; };
+		BE315F2F19254DA8008B0C41 /* WCMWorkoutData.m in Sources */ = {isa = PBXBuildFile; fileRef = BE315F2E19254DA8008B0C41 /* WCMWorkoutData.m */; };
+		BE315F3219255072008B0C41 /* WCMWorkoutDataDoc.m in Sources */ = {isa = PBXBuildFile; fileRef = BE315F3119255072008B0C41 /* WCMWorkoutDataDoc.m */; };
+		BE315F37192580F2008B0C41 /* swim.png in Resources */ = {isa = PBXBuildFile; fileRef = BE315F33192580F2008B0C41 /* swim.png */; };
+		BE315F38192580F2008B0C41 /* weightlift.png in Resources */ = {isa = PBXBuildFile; fileRef = BE315F34192580F2008B0C41 /* weightlift.png */; };
+		BE315F39192580F2008B0C41 /* run.png in Resources */ = {isa = PBXBuildFile; fileRef = BE315F35192580F2008B0C41 /* run.png */; };
+		BE315F3A192580F2008B0C41 /* bike.png in Resources */ = {isa = PBXBuildFile; fileRef = BE315F36192580F2008B0C41 /* bike.png */; };
+		BE5EB2E5192D19110023D307 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5EB2E4192D19110023D307 /* QuartzCore.framework */; };
+		BE5EB2EF192D1DC80023D307 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5EB2EE192D1DC80023D307 /* SVProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +64,17 @@
 		BE315F1D192529D7008B0C41 /* ListDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ListDemoTests-Info.plist"; sourceTree = "<group>"; };
 		BE315F1F192529D7008B0C41 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BE315F21192529D7008B0C41 /* ListDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListDemoTests.m; sourceTree = "<group>"; };
+		BE315F2D19254DA8008B0C41 /* WCMWorkoutData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCMWorkoutData.h; sourceTree = "<group>"; };
+		BE315F2E19254DA8008B0C41 /* WCMWorkoutData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCMWorkoutData.m; sourceTree = "<group>"; };
+		BE315F3019255072008B0C41 /* WCMWorkoutDataDoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCMWorkoutDataDoc.h; sourceTree = "<group>"; };
+		BE315F3119255072008B0C41 /* WCMWorkoutDataDoc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCMWorkoutDataDoc.m; sourceTree = "<group>"; };
+		BE315F33192580F2008B0C41 /* swim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = swim.png; sourceTree = "<group>"; };
+		BE315F34192580F2008B0C41 /* weightlift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weightlift.png; sourceTree = "<group>"; };
+		BE315F35192580F2008B0C41 /* run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = run.png; sourceTree = "<group>"; };
+		BE315F36192580F2008B0C41 /* bike.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bike.png; sourceTree = "<group>"; };
+		BE5EB2E4192D19110023D307 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		BE5EB2ED192D1DC00023D307 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		BE5EB2EE192D1DC80023D307 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE5EB2E5192D19110023D307 /* QuartzCore.framework in Frameworks */,
 				BE315EF6192529D7008B0C41 /* CoreGraphics.framework in Frameworks */,
 				BE315EF8192529D7008B0C41 /* UIKit.framework in Frameworks */,
 				BE315EF4192529D7008B0C41 /* Foundation.framework in Frameworks */,
@@ -85,6 +105,7 @@
 		BE315EE7192529D7008B0C41 = {
 			isa = PBXGroup;
 			children = (
+				BE43BB05192D09990015416A /* Art */,
 				BE315EF9192529D7008B0C41 /* ListDemo */,
 				BE315F1B192529D7008B0C41 /* ListDemoTests */,
 				BE315EF2192529D7008B0C41 /* Frameworks */,
@@ -104,6 +125,7 @@
 		BE315EF2192529D7008B0C41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE5EB2E4192D19110023D307 /* QuartzCore.framework */,
 				BE315EF3192529D7008B0C41 /* Foundation.framework */,
 				BE315EF5192529D7008B0C41 /* CoreGraphics.framework */,
 				BE315EF7192529D7008B0C41 /* UIKit.framework */,
@@ -115,13 +137,9 @@
 		BE315EF9192529D7008B0C41 /* ListDemo */ = {
 			isa = PBXGroup;
 			children = (
-				BE315F02192529D7008B0C41 /* WCMAppDelegate.h */,
-				BE315F03192529D7008B0C41 /* WCMAppDelegate.m */,
-				BE315F05192529D7008B0C41 /* Main.storyboard */,
-				BE315F08192529D7008B0C41 /* WCMMasterViewController.h */,
-				BE315F09192529D7008B0C41 /* WCMMasterViewController.m */,
-				BE315F0B192529D7008B0C41 /* WCMDetailViewController.h */,
-				BE315F0C192529D7008B0C41 /* WCMDetailViewController.m */,
+				BE43BB06192D11D50015416A /* Views */,
+				BE315F2C19252AA8008B0C41 /* Model */,
+				BE315F2B19252A78008B0C41 /* GUI */,
 				BE315F0E192529D7008B0C41 /* Images.xcassets */,
 				BE315EFA192529D7008B0C41 /* Supporting Files */,
 			);
@@ -155,6 +173,51 @@
 				BE315F1E192529D7008B0C41 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BE315F2B19252A78008B0C41 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				BE315F05192529D7008B0C41 /* Main.storyboard */,
+				BE315F02192529D7008B0C41 /* WCMAppDelegate.h */,
+				BE315F03192529D7008B0C41 /* WCMAppDelegate.m */,
+				BE315F08192529D7008B0C41 /* WCMMasterViewController.h */,
+				BE315F09192529D7008B0C41 /* WCMMasterViewController.m */,
+				BE315F0B192529D7008B0C41 /* WCMDetailViewController.h */,
+				BE315F0C192529D7008B0C41 /* WCMDetailViewController.m */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		BE315F2C19252AA8008B0C41 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE315F2D19254DA8008B0C41 /* WCMWorkoutData.h */,
+				BE315F2E19254DA8008B0C41 /* WCMWorkoutData.m */,
+				BE315F3019255072008B0C41 /* WCMWorkoutDataDoc.h */,
+				BE315F3119255072008B0C41 /* WCMWorkoutDataDoc.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		BE43BB05192D09990015416A /* Art */ = {
+			isa = PBXGroup;
+			children = (
+				BE315F36192580F2008B0C41 /* bike.png */,
+				BE315F35192580F2008B0C41 /* run.png */,
+				BE315F33192580F2008B0C41 /* swim.png */,
+				BE315F34192580F2008B0C41 /* weightlift.png */,
+			);
+			name = Art;
+			sourceTree = "<group>";
+		};
+		BE43BB06192D11D50015416A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BE5EB2EE192D1DC80023D307 /* SVProgressHUD.m */,
+				BE5EB2ED192D1DC00023D307 /* SVProgressHUD.h */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,8 +297,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE315F38192580F2008B0C41 /* weightlift.png in Resources */,
+				BE315F37192580F2008B0C41 /* swim.png in Resources */,
 				BE315F0F192529D7008B0C41 /* Images.xcassets in Resources */,
+				BE315F3A192580F2008B0C41 /* bike.png in Resources */,
 				BE315EFE192529D7008B0C41 /* InfoPlist.strings in Resources */,
+				BE315F39192580F2008B0C41 /* run.png in Resources */,
 				BE315F07192529D7008B0C41 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,7 +322,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE315F3219255072008B0C41 /* WCMWorkoutDataDoc.m in Sources */,
 				BE315F0A192529D7008B0C41 /* WCMMasterViewController.m in Sources */,
+				BE315F2F19254DA8008B0C41 /* WCMWorkoutData.m in Sources */,
+				BE5EB2EF192D1DC80023D307 /* SVProgressHUD.m in Sources */,
 				BE315F0D192529D7008B0C41 /* WCMDetailViewController.m in Sources */,
 				BE315F04192529D7008B0C41 /* WCMAppDelegate.m in Sources */,
 				BE315F00192529D7008B0C41 /* main.m in Sources */,
@@ -463,6 +533,7 @@
 				BE315F27192529D7008B0C41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE315F28192529D7008B0C41 /* Build configuration list for PBXNativeTarget "ListDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -471,6 +542,7 @@
 				BE315F2A192529D7008B0C41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
