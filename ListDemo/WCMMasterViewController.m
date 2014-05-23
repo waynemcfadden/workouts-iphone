@@ -78,7 +78,7 @@
 
 - (void) addTapped: (id) sender {
     UIImage *defaultImage = [UIImage imageNamed:@"swim"];
-    WCMWorkoutDataDoc *newDoc = [[WCMWorkoutDataDoc alloc] initWithTitle:@"New Workout" distance:0.0 thumbImage:defaultImage];
+    WCMWorkoutDataDoc *newDoc = [[WCMWorkoutDataDoc alloc] initWithTitle:@"New Workout" distance:0.0 time:0.0 workoutDate:0.0 thumbImage:defaultImage];
     [_workouts addObject:newDoc];
 
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_workouts.count-1 inSection:0];

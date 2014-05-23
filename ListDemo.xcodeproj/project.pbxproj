@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE1982D2192FB65C00981F01 /* WCMWorkoutPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1982D1192FB65C00981F01 /* WCMWorkoutPickerViewController.m */; };
+		BE1982D9192FF3C100981F01 /* WCMDateTimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1982D8192FF3C100981F01 /* WCMDateTimeUtils.m */; };
 		BE315EF4192529D7008B0C41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE315EF3192529D7008B0C41 /* Foundation.framework */; };
 		BE315EF6192529D7008B0C41 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE315EF5192529D7008B0C41 /* CoreGraphics.framework */; };
 		BE315EF8192529D7008B0C41 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE315EF7192529D7008B0C41 /* UIKit.framework */; };
@@ -43,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE1982D0192FB65C00981F01 /* WCMWorkoutPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCMWorkoutPickerViewController.h; sourceTree = "<group>"; };
+		BE1982D1192FB65C00981F01 /* WCMWorkoutPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCMWorkoutPickerViewController.m; sourceTree = "<group>"; };
+		BE1982D7192FF3C100981F01 /* WCMDateTimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCMDateTimeUtils.h; sourceTree = "<group>"; };
+		BE1982D8192FF3C100981F01 /* WCMDateTimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCMDateTimeUtils.m; sourceTree = "<group>"; };
 		BE315EF0192529D7008B0C41 /* ListDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ListDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE315EF3192529D7008B0C41 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BE315EF5192529D7008B0C41 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -102,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE1982D3192FF13200981F01 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				BE1982D7192FF3C100981F01 /* WCMDateTimeUtils.h */,
+				BE1982D8192FF3C100981F01 /* WCMDateTimeUtils.m */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
 		BE315EE7192529D7008B0C41 = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +152,7 @@
 		BE315EF9192529D7008B0C41 /* ListDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BE1982D3192FF13200981F01 /* utils */,
 				BE43BB06192D11D50015416A /* Views */,
 				BE315F2C19252AA8008B0C41 /* Model */,
 				BE315F2B19252A78008B0C41 /* GUI */,
@@ -196,6 +212,8 @@
 				BE315F2E19254DA8008B0C41 /* WCMWorkoutData.m */,
 				BE315F3019255072008B0C41 /* WCMWorkoutDataDoc.h */,
 				BE315F3119255072008B0C41 /* WCMWorkoutDataDoc.m */,
+				BE1982D0192FB65C00981F01 /* WCMWorkoutPickerViewController.h */,
+				BE1982D1192FB65C00981F01 /* WCMWorkoutPickerViewController.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -323,9 +341,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE315F3219255072008B0C41 /* WCMWorkoutDataDoc.m in Sources */,
+				BE1982D9192FF3C100981F01 /* WCMDateTimeUtils.m in Sources */,
 				BE315F0A192529D7008B0C41 /* WCMMasterViewController.m in Sources */,
 				BE315F2F19254DA8008B0C41 /* WCMWorkoutData.m in Sources */,
 				BE5EB2EF192D1DC80023D307 /* SVProgressHUD.m in Sources */,
+				BE1982D2192FB65C00981F01 /* WCMWorkoutPickerViewController.m in Sources */,
 				BE315F0D192529D7008B0C41 /* WCMDetailViewController.m in Sources */,
 				BE315F04192529D7008B0C41 /* WCMAppDelegate.m in Sources */,
 				BE315F00192529D7008B0C41 /* main.m in Sources */,

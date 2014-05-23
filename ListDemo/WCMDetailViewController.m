@@ -10,14 +10,13 @@
 #import "WCMWorkoutData.h"
 #import "WCMWorkoutDataDoc.h"
 #import "SVProgressHUD.h"
-
+#import "WCMDateTimeUtils.h"
 
 @interface WCMDetailViewController ()
 - (void)configureView;
 @end
 
 @implementation WCMDetailViewController
-@synthesize imgPicker = _picker;
 
 #pragma mark - Managing the detail item
 
@@ -37,17 +36,50 @@
 
     if (self.detailItem) {
         self.detailDescriptionLabel.text = [self.detailItem description];
-        self.typeField.text = self.detailItem.data.title;
-        self.timeDistanceField.text = [NSString stringWithFormat:@"%f",self.detailItem.data.distance];
+        self.typeLabel.text = self.detailItem.data.title;
+        double timeD = [self millisecondsToMinutes:self.detailItem.data.time] ;
+        self.timeField.text = [NSString stringWithFormat:@"%f", timeD];
+        self.distanceField.text = [NSString stringWithFormat:@"%f",self.detailItem.data.distance];
+        self.workoutDateField.text = @"hi there";
+        if ([self.detailItem.data.title  isEqual:@"Run"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"run.png"];
+            
+        }else if ([self.detailItem.data.title  isEqual:@"Swim"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"swim.png"];
+        }else if ([self.detailItem.data.title  isEqual:@"WeightLift"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"weightlift.png"];
+        }else if ([self.detailItem.data.title  isEqual:@"Bike"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"bike.png"];
+        }
+        
+        NSLog(@"%f", self.detailItem.data.distance);
     }
+}
+
+
+- (double) millisecondsToMinutes: (double) millis  {
+    double d = millis/MILLIS/SECONDS;
+    return d;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-   
+    self.workoutNames = [[NSArray alloc] initWithObjects: @"Select Workout",
+                         @"Bike", @"Run", @"Swim",
+                         @"Weightlift", nil];
+    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    [datePicker setDate:[NSDate date]];
+    [datePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
+    [self configureView];
+    
+    //http://stackoverflow.com/questions/11197855/iphone-display-date-picker-on-textfield-click
+    
+    [self.workoutDateField setInputView:datePicker];
+    
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -55,52 +87,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)addPictureTapped:(id)sender {
-    if (self.imgPicker == nil) {
-        //show status
-       // [SVProgressHUD showWithStatus:@"Loading Image Picker"];
-        // get queue
-       // concurrentQueue =dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-      // concurrentQueue =  dispatch_queue_create("com.listdemo.workouttracker.bgqueue", NULL);
-        // LOAD IMAGE PICKER IN BACKGROUND
-        
-        //dispatch_async(concurrentQueue, ^{
-                                                                      
-                                                                      
-        self.imgPicker = [[UIImagePickerController alloc] init];
-        self.imgPicker.delegate = self;
-        self.imgPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        self.imgPicker.allowsEditing=NO;
-        
-            // Present picker in main thread
-          //  dispatch_async(dispatch_get_main_queue(), ^{
-            //    [self presentViewController:_picker animated:YES completion:nil];
-              //  [SVProgressHUD dismiss];
-            //});
-        //});
+
+
+
+
+#pragma mark PickerView DataSource
+
+- (NSInteger)numberOfComponentsInPickerView:
+(UIPickerView *)pickerView
+{
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView
+numberOfRowsInComponent:(NSInteger)component
+{
+    return [self.workoutNames count];
+}
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component
+{
+    return [self.workoutNames objectAtIndex:row];
+}
+
+#pragma mark PickerView Delegate
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
+      inComponent:(NSInteger)component {
+    NSInteger selRowId = [pickerView selectedRowInComponent:0];
+    if (selRowId>0) {
+
+        NSString *wType = [self.workoutNames objectAtIndex:row];
+        self.detailItem.data.title =  wType;
+        [self configureView];
     }
-    [self presentViewController:_picker animated:YES completion:nil];
-}
-
-#pragma mark UIImagePickerControllerDelegate
-- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [ self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    [ self dismissViewControllerAnimated:YES completion:nil];
     
-    UIImage *fullImage = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
-     self.detailItem.thumbImage = fullImage;
+
     
 }
 
 
-- (IBAction)titleFieldTextChanged:(id)sender {
-    self.detailItem.data.title =  self.typeField.text;
+-(IBAction)textFieldReturn:(id)sender
+{
+    [sender resignFirstResponder];
 }
 
-
+- (IBAction)timeFieldChanged:(id)sender {
+    double myTime= [self.timeField.text doubleValue];
+    self.detailItem.data.time =  myTime;
+}
 
 #pragma mark UITextFieldDelegate
 
@@ -109,15 +143,21 @@
     return YES;
 }
 
-
-- (IBAction)distanceFieldChanged:(id)sender {
-    
-    double myDistance= [self.timeDistanceField.text doubleValue];
-    self.detailItem.data.distance =  myDistance;
-    
-    
+-(void)updateTextField:(id)sender
+{
+    UIDatePicker *picker = (UIDatePicker*)self.workoutDateField.inputView;
+    self.workoutDateField.text = [NSString stringWithFormat:@"%@",picker.date];
 }
+
 -(BOOL) shouldAutorotateToInterfaceOrientation{
     return YES;
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+    self.workoutTypePicker = nil;
 }
 @end

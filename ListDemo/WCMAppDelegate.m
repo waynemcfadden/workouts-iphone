@@ -35,11 +35,11 @@ BOOL IS_TEST_MODE=YES;
     NSMutableArray *workouts = [[NSMutableArray alloc] initWithCapacity: 10];
     
    // if (IS_TEST_MODE) {
-        WCMWorkoutDataDoc *workout1 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run" distance:17.5 thumbImage:[UIImage imageNamed:@"run.png"]];
-        WCMWorkoutDataDoc *workout2 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:27.5 thumbImage:[UIImage imageNamed:@"bike.png"]];
+    WCMWorkoutDataDoc *workout1 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run" distance:17 time:7200000 workoutDate:0.0 thumbImage:[UIImage imageNamed:@"run.png"]];
+    WCMWorkoutDataDoc *workout2 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:27.5 time:7400000 workoutDate:0.0 thumbImage:[UIImage imageNamed:@"bike.png"]];
         
-        WCMWorkoutDataDoc *workout3 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 thumbImage:[UIImage imageNamed:@"bike.png"]];
-        WCMWorkoutDataDoc *workout4 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 thumbImage:[UIImage imageNamed:@"bike.png"]];
+    WCMWorkoutDataDoc *workout3 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 time:7000000  workoutDate:0.0 thumbImage:[UIImage imageNamed:@"bike.png"]];
+    WCMWorkoutDataDoc *workout4 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 time:600000 workoutDate:0.0 thumbImage:[UIImage imageNamed:@"bike.png"]];
         workouts = [NSMutableArray arrayWithObjects:workout1, workout2, workout3, workout4, nil];
     //}
     
