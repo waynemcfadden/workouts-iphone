@@ -36,14 +36,13 @@
 
     if (self.detailItem) {
         self.detailDescriptionLabel.text = [self.detailItem description];
-        self.typeLabel.text = self.detailItem.data.title;
+        self.workoutTypeField.text = self.detailItem.data.title;
         double timeD = [self millisecondsToMinutes:self.detailItem.data.time] ;
         self.timeField.text = [NSString stringWithFormat:@"%f", timeD];
         self.distanceField.text = [NSString stringWithFormat:@"%f",self.detailItem.data.distance];
-        self.workoutDateField.text = @"hi there";
+        self.workoutDateField.text = [NSString stringWithFormat:@"%f",self.detailItem.data.workoutDate];
         if ([self.detailItem.data.title  isEqual:@"Run"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"run.png"];
-            
         }else if ([self.detailItem.data.title  isEqual:@"Swim"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"swim.png"];
         }else if ([self.detailItem.data.title  isEqual:@"WeightLift"]) {
@@ -77,6 +76,11 @@
     //http://stackoverflow.com/questions/11197855/iphone-display-date-picker-on-textfield-click
     
     [self.workoutDateField setInputView:datePicker];
+    
+    UIPickerView *picker = [[UIPickerView alloc] init];
+    picker.dataSource = self;
+    picker.delegate = self;
+    self.workoutTypeField.inputView = picker;
     
 }
 
@@ -119,6 +123,7 @@ numberOfRowsInComponent:(NSInteger)component
         NSString *wType = [self.workoutNames objectAtIndex:row];
         self.detailItem.data.title =  wType;
         [self configureView];
+        [self.workoutTypeField resignFirstResponder];
     }
     
 
@@ -147,6 +152,7 @@ numberOfRowsInComponent:(NSInteger)component
 {
     UIDatePicker *picker = (UIDatePicker*)self.workoutDateField.inputView;
     self.workoutDateField.text = [NSString stringWithFormat:@"%@",picker.date];
+     [sender resignFirstResponder];
 }
 
 -(BOOL) shouldAutorotateToInterfaceOrientation{
@@ -158,6 +164,6 @@ numberOfRowsInComponent:(NSInteger)component
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    self.workoutTypePicker = nil;
+    //self.workoutTypePicker = nil;
 }
 @end
