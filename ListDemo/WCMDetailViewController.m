@@ -38,20 +38,49 @@
         self.detailDescriptionLabel.text = [self.detailItem description];
         self.workoutTypeField.text = self.detailItem.data.title;
         double timeD = [self millisecondsToMinutes:self.detailItem.data.time] ;
-        self.timeField.text = [NSString stringWithFormat:@"%f", timeD];
-        self.distanceField.text = [NSString stringWithFormat:@"%f",self.detailItem.data.distance];
-        self.workoutDateField.text = [NSString stringWithFormat:@"%f",self.detailItem.data.workoutDate];
-        if ([self.detailItem.data.title  isEqual:@"Run"]) {
+        NSLog(@"Time Field changed: %f", timeD);
+
+        if (timeD>0) {
+            
+            self.timeField.text = [NSString stringWithFormat:@"%.02f", timeD];
+        }
+        if(self.detailItem.data.distance>0.0) {
+            self.distanceField.text = [NSString stringWithFormat:@"%.02f",self.detailItem.data.distance];
+        }
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setGeneratesCalendarDates:YES];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        [dateFormatter setCalendar:[NSCalendar autoupdatingCurrentCalendar]];
+        [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
+        [dateFormatter setDateStyle:NSDateFormatterShortStyle]; // example: 4/13/10
+        if (self.detailItem.data.workoutDate>0) {
+            
+            self.workoutDateField.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:self.detailItem.data.workoutDate]];
+            
+            
+        } else {
+            
+            self.workoutDateField.text =[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[NSDate date]]];
+        }
+        if ([self.detailItem.data.title  isEqual:@"Run (Outdoors)"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"run.png"];
-        }else if ([self.detailItem.data.title  isEqual:@"Swim"]) {
+        }else if ([self.detailItem.data.title  isEqual:@"Run (Treadmill)"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"run.png"];
+        } else if ([self.detailItem.data.title  isEqual:@"Swim"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"swim.png"];
         }else if ([self.detailItem.data.title  isEqual:@"WeightLift"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"weightlift.png"];
-        }else if ([self.detailItem.data.title  isEqual:@"Bike"]) {
+        }else if ([self.detailItem.data.title  isEqual:@"Cycling"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"bike.png"];
+        }else if ([self.detailItem.data.title  isEqual:@"Spin Class"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"bike.png"];
+        }else if ([self.detailItem.data.title  isEqual:@"Stationary Bike"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"bike.png"];
+        }else if ([self.detailItem.data.title  isEqual:@"Yoga"]) {
+            self.detailItem.thumbImage = [UIImage imageNamed:@"weightlift.png"];
         }
-        
-        NSLog(@"%f", self.detailItem.data.distance);
+        NSLog(@"Distance %f", self.detailItem.data.distance);
     }
 }
 
@@ -61,14 +90,22 @@
     return d;
 }
 
+- (double) minutesToMilliseconds: (double) minutes  {
+    double d = minutes * MILLIS * SECONDS;
+    return d;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.workoutNames = [[NSArray alloc] initWithObjects: @"Select Workout",
-                         @"Bike", @"Run", @"Swim",
-                         @"Weightlift", nil];
+                         @"Cycling", @"Elliptical", @"Rowing Machine", @"Run (Outdoors)", @"Run (Treadmill)", @"Spin Class", @"Stationary Bike", @"Swim",
+                         @"Weightlift", @"Yoga", nil];
+    
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+
     [datePicker setDate:[NSDate date]];
     [datePicker addTarget:self action:@selector(updateTextField:) forControlEvents:UIControlEventValueChanged];
     [self configureView];
@@ -82,6 +119,7 @@
     picker.delegate = self;
     self.workoutTypeField.inputView = picker;
     
+       
 }
 
 
@@ -138,7 +176,18 @@ numberOfRowsInComponent:(NSInteger)component
 
 - (IBAction)timeFieldChanged:(id)sender {
     double myTime= [self.timeField.text doubleValue];
-    self.detailItem.data.time =  myTime;
+     double timeD = [self minutesToMilliseconds:myTime] ;
+    self.detailItem.data.time = timeD;
+    NSLog(@"Time Field changed: %f", timeD);
+     [self configureView];
+    
+}
+
+- (IBAction)distanceFieldChanged:(id)sender {
+    double myD =[self.distanceField.text doubleValue];
+    NSLog(@"Distance Field changed: %ff", myD);
+    self.detailItem.data.distance =  myD;
+     [self configureView];
 }
 
 #pragma mark UITextFieldDelegate
@@ -151,9 +200,16 @@ numberOfRowsInComponent:(NSInteger)component
 -(void)updateTextField:(id)sender
 {
     UIDatePicker *picker = (UIDatePicker*)self.workoutDateField.inputView;
-    self.workoutDateField.text = [NSString stringWithFormat:@"%@",picker.date];
-     [sender resignFirstResponder];
-}
+     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    //[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    picker.datePickerMode = UIDatePickerModeDate;
+    NSString *formattedDateString = [dateFormatter stringFromDate:picker.date];
+    NSLog(@"updateTextField formattedDateString: %@", formattedDateString);
+    // Output for locale en_US: "formattedDateString: Jan 2, 2001".
+
+    self.workoutDateField.text = [NSString stringWithFormat:@"%@",formattedDateString];
+   }
 
 -(BOOL) shouldAutorotateToInterfaceOrientation{
     return YES;

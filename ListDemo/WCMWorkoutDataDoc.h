@@ -13,6 +13,6 @@
 @property (strong) WCMWorkoutData *data;
 @property (strong) UIImage *thumbImage;
 
-- (id) initWithTitle : (NSString*) title distance:(double)distance time:(double)time workoutDate:(double)workoutDate thumbImage:(UIImage * )thumbImage;
+- (id) initWithTitle : (NSString*) title distance:(double)distance time:(double)time workoutDate:(NSDate*)workoutDate thumbImage:(UIImage * )thumbImage;
 
 @end

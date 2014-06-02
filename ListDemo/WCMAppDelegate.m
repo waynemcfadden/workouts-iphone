@@ -31,15 +31,25 @@ BOOL IS_TEST_MODE=YES;
 
 
 - (NSMutableArray *) loadBootstrapWorkoutData {
-    
     NSMutableArray *workouts = [[NSMutableArray alloc] initWithCapacity: 10];
     
+    //NSCalendar *cal = [NSCalendar currentCalendar];
+    //[cal setTimeZone:[NSTimeZone localTimeZone]];
+    //[cal setLocale:[NSLocale currentLocale]];
+    
    // if (IS_TEST_MODE) {
-    WCMWorkoutDataDoc *workout1 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run" distance:17 time:7200000 workoutDate:0.0 thumbImage:[UIImage imageNamed:@"run.png"]];
-    WCMWorkoutDataDoc *workout2 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:27.5 time:7400000 workoutDate:0.0 thumbImage:[UIImage imageNamed:@"bike.png"]];
+    //NSDateComponents *comps = [[NSDateComponents alloc] init];
+    //[comps setDay:10];
+    //[comps setMonth:10];
+    //[comps setYear:2010];
+    
+   //NSDate *newDate = [cal dateFromComponents:comps];
+    NSDate *newDate =  [NSDate date];
+    WCMWorkoutDataDoc *workout1 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run (Outdoors)" distance:17 time:7200000 workoutDate:newDate thumbImage:[UIImage imageNamed:@"run.png"]];
+    WCMWorkoutDataDoc *workout2 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Cycling" distance:27.5 time:7400000 workoutDate:newDate thumbImage:[UIImage imageNamed:@"bike.png"]];
         
-    WCMWorkoutDataDoc *workout3 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 time:7000000  workoutDate:0.0 thumbImage:[UIImage imageNamed:@"bike.png"]];
-    WCMWorkoutDataDoc *workout4 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Bike" distance:17.5 time:600000 workoutDate:0.0 thumbImage:[UIImage imageNamed:@"bike.png"]];
+    WCMWorkoutDataDoc *workout3 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Spin Class" distance:0 time:7000000  workoutDate:newDate thumbImage:[UIImage imageNamed:@"bike.png"]];
+    WCMWorkoutDataDoc *workout4 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Stationary Bike" distance:17.5 time:600000 workoutDate:newDate thumbImage:[UIImage imageNamed:@"bike.png"]];
         workouts = [NSMutableArray arrayWithObjects:workout1, workout2, workout3, workout4, nil];
     //}
     
