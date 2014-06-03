@@ -54,14 +54,17 @@
         [dateFormatter setCalendar:[NSCalendar autoupdatingCurrentCalendar]];
         [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
         [dateFormatter setDateStyle:NSDateFormatterShortStyle]; // example: 4/13/10
-        if (self.detailItem.data.workoutDate>0) {
+       // NSLog(@"Date:", [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:self.detailItem.data.workoutDate]]);
+      //  NSLog(@"Todays date is %@", self.detailItem.data.workoutDate);
+        if (self.detailItem.data.workoutDate == nil) {
             
-            self.workoutDateField.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:self.detailItem.data.workoutDate]];
+            self.workoutDateField.text =[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[NSDate date]]];
             
             
         } else {
+            self.workoutDateField.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:self.detailItem.data.workoutDate]];
             
-            self.workoutDateField.text =[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[NSDate date]]];
+
         }
         if ([self.detailItem.data.title  isEqual:@"Run (Outdoors)"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"run.png"];
@@ -207,8 +210,13 @@ numberOfRowsInComponent:(NSInteger)component
     NSString *formattedDateString = [dateFormatter stringFromDate:picker.date];
     NSLog(@"updateTextField formattedDateString: %@", formattedDateString);
     // Output for locale en_US: "formattedDateString: Jan 2, 2001".
-
+    
     self.workoutDateField.text = [NSString stringWithFormat:@"%@",formattedDateString];
+   
+    NSDate *yourDate                =   [dateFormatter dateFromString:formattedDateString];
+    self.detailItem.data.workoutDate = yourDate;
+     [self configureView];
+    
    }
 
 -(BOOL) shouldAutorotateToInterfaceOrientation{

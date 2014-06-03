@@ -13,6 +13,7 @@
 @property (strong) NSString *title;
 @property (assign) double distance;
 @property (assign) double time;
-@property (assign) NSDate *workoutDate;
+@property (nonatomic, strong
+           ) NSDate *workoutDate;
 -(id) initWithTitle: (NSString*) title distance:(double)distance time:(double)time workoutDate:(NSDate*)workoutDate thumbImage:(UIImage * )thumbImage;
 @end
