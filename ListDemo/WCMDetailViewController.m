@@ -9,7 +9,6 @@
 #import "WCMDetailViewController.h"
 #import "WCMWorkoutData.h"
 #import "WCMWorkoutDataDoc.h"
-#import "SVProgressHUD.h"
 #import "WCMDateTimeUtils.h"
 
 @interface WCMDetailViewController ()
@@ -22,6 +21,7 @@
 
 - (void)setDetailItem:(id)newDetailItem
 {
+    NSLog(@"New detail item:");
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
         
@@ -35,6 +35,7 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
+        NSLog(@"Entry detail item: %@", self.detailItem.data.title );
         self.detailDescriptionLabel.text = [self.detailItem description];
         self.workoutTypeField.text = self.detailItem.data.title;
         double timeD = [self millisecondsToMinutes:self.detailItem.data.time] ;
@@ -66,6 +67,7 @@
             
 
         }
+        
         if ([self.detailItem.data.title  isEqual:@"Run (Outdoors)"]) {
             self.detailItem.thumbImage = [UIImage imageNamed:@"run.png"];
         }else if ([self.detailItem.data.title  isEqual:@"Run (Treadmill)"]) {
@@ -101,6 +103,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if (self.detailItem==nil) {
+        NSDate *newDate =  [NSDate date];
+        WCMWorkoutDataDoc *item = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run (Outdoors)" distance:0 time:0 workoutDate:newDate thumbImage:[UIImage imageNamed:@"run.png"]];
+        [ self setDetailItem: item];
+    }
 	// Do any additional setup after loading the view, typically from a nib.
     self.workoutNames = [[NSArray alloc] initWithObjects: @"Select Workout",
                          @"Cycling", @"Elliptical", @"Rowing Machine", @"Run (Outdoors)", @"Run (Treadmill)", @"Spin Class", @"Stationary Bike", @"Swim",
@@ -136,13 +144,14 @@
 
 
 
-#pragma mark PickerView DataSource
+#pragma mark PickerView DataSource Workout Type
 
 - (NSInteger)numberOfComponentsInPickerView:
 (UIPickerView *)pickerView
 {
     return 1;
 }
+
 - (NSInteger)pickerView:(UIPickerView *)pickerView
 numberOfRowsInComponent:(NSInteger)component
 {
@@ -155,7 +164,7 @@ numberOfRowsInComponent:(NSInteger)component
     return [self.workoutNames objectAtIndex:row];
 }
 
-#pragma mark PickerView Delegate
+#pragma mark PickerView Delegate set the workout type
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component {
     NSInteger selRowId = [pickerView selectedRowInComponent:0];
@@ -165,7 +174,10 @@ numberOfRowsInComponent:(NSInteger)component
         self.detailItem.data.title =  wType;
         [self configureView];
         [self.workoutTypeField resignFirstResponder];
+        NSLog(@"Workout Type Field changed: %@", wType);
     }
+    
+   
     
 
     

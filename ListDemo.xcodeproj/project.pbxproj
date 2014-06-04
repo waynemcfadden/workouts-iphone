@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE0C6F35193E82A500771B90 /* WCMMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE0C6F33193E82A500771B90 /* WCMMainScreenViewController.m */; };
 		BE1982D2192FB65C00981F01 /* WCMWorkoutPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1982D1192FB65C00981F01 /* WCMWorkoutPickerViewController.m */; };
 		BE1982D9192FF3C100981F01 /* WCMDateTimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1982D8192FF3C100981F01 /* WCMDateTimeUtils.m */; };
 		BE315EF4192529D7008B0C41 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE315EF3192529D7008B0C41 /* Foundation.framework */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE0C6F32193E82A500771B90 /* WCMMainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WCMMainScreenViewController.h; path = Images.xcassets/WCMMainScreenViewController.h; sourceTree = "<group>"; };
+		BE0C6F33193E82A500771B90 /* WCMMainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WCMMainScreenViewController.m; path = Images.xcassets/WCMMainScreenViewController.m; sourceTree = "<group>"; };
 		BE1982D0192FB65C00981F01 /* WCMWorkoutPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCMWorkoutPickerViewController.h; sourceTree = "<group>"; };
 		BE1982D1192FB65C00981F01 /* WCMWorkoutPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCMWorkoutPickerViewController.m; sourceTree = "<group>"; };
 		BE1982D7192FF3C100981F01 /* WCMDateTimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCMDateTimeUtils.h; sourceTree = "<group>"; };
@@ -194,13 +197,15 @@
 		BE315F2B19252A78008B0C41 /* GUI */ = {
 			isa = PBXGroup;
 			children = (
-				BE315F05192529D7008B0C41 /* Main.storyboard */,
 				BE315F02192529D7008B0C41 /* WCMAppDelegate.h */,
 				BE315F03192529D7008B0C41 /* WCMAppDelegate.m */,
 				BE315F08192529D7008B0C41 /* WCMMasterViewController.h */,
 				BE315F09192529D7008B0C41 /* WCMMasterViewController.m */,
 				BE315F0B192529D7008B0C41 /* WCMDetailViewController.h */,
 				BE315F0C192529D7008B0C41 /* WCMDetailViewController.m */,
+				BE0C6F32193E82A500771B90 /* WCMMainScreenViewController.h */,
+				BE315F05192529D7008B0C41 /* Main.storyboard */,
+				BE0C6F33193E82A500771B90 /* WCMMainScreenViewController.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -345,6 +350,7 @@
 				BE315F0A192529D7008B0C41 /* WCMMasterViewController.m in Sources */,
 				BE315F2F19254DA8008B0C41 /* WCMWorkoutData.m in Sources */,
 				BE5EB2EF192D1DC80023D307 /* SVProgressHUD.m in Sources */,
+				BE0C6F35193E82A500771B90 /* WCMMainScreenViewController.m in Sources */,
 				BE1982D2192FB65C00981F01 /* WCMWorkoutPickerViewController.m in Sources */,
 				BE315F0D192529D7008B0C41 /* WCMDetailViewController.m in Sources */,
 				BE315F04192529D7008B0C41 /* WCMAppDelegate.m in Sources */,

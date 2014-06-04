@@ -9,7 +9,7 @@
 #import "WCMAppDelegate.h"
 #import "WCMWorkoutDataDoc.h"
 #import "WCMMasterViewController.h"
-
+#import "WCMMainScreenViewController.h"
 @implementation WCMAppDelegate
 
 BOOL IS_TEST_MODE=YES;
@@ -19,11 +19,11 @@ BOOL IS_TEST_MODE=YES;
     
     
     
-    NSMutableArray *workouts = [self loadBootstrapWorkoutData];
+   // NSMutableArray *workouts = [self loadBootstrapWorkoutData];
     UINavigationController *navController = (UINavigationController *
                                              )  self.window.rootViewController;
-    WCMMasterViewController *masterController  =  [navController.viewControllers objectAtIndex:0];
-    masterController.workouts = workouts;
+    WCMMainScreenViewController *masterController  =  [navController.viewControllers objectAtIndex:0];
+    //masterController.workouts = workouts;
     
     return YES;
 }

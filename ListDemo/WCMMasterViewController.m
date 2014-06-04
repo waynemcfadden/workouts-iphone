@@ -29,6 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:FALSE];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
@@ -36,6 +37,36 @@
     self.navigationItem.rightBarButtonItem = addButton;
     self.title =@"Workouts";
     
+    NSMutableArray *workouts = [self loadBootstrapWorkoutData];
+    _workouts = workouts;
+}
+
+
+
+- (NSMutableArray *) loadBootstrapWorkoutData {
+    NSMutableArray *workouts = [[NSMutableArray alloc] initWithCapacity: 10];
+    
+    //NSCalendar *cal = [NSCalendar currentCalendar];
+    //[cal setTimeZone:[NSTimeZone localTimeZone]];
+    //[cal setLocale:[NSLocale currentLocale]];
+    
+    // if (IS_TEST_MODE) {
+    //NSDateComponents *comps = [[NSDateComponents alloc] init];
+    //[comps setDay:10];
+    //[comps setMonth:10];
+    //[comps setYear:2010];
+    
+    //NSDate *newDate = [cal dateFromComponents:comps];
+    NSDate *newDate =  [NSDate date];
+    WCMWorkoutDataDoc *workout1 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run (Outdoors)" distance:17 time:7200000 workoutDate:newDate thumbImage:[UIImage imageNamed:@"run.png"]];
+    WCMWorkoutDataDoc *workout2 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Cycling" distance:27.5 time:7400000 workoutDate:newDate thumbImage:[UIImage imageNamed:@"bike.png"]];
+    
+    WCMWorkoutDataDoc *workout3 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Spin Class" distance:0 time:7000000  workoutDate:newDate thumbImage:[UIImage imageNamed:@"bike.png"]];
+    WCMWorkoutDataDoc *workout4 = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Stationary Bike" distance:17.5 time:600000 workoutDate:newDate thumbImage:[UIImage imageNamed:@"bike.png"]];
+    workouts = [NSMutableArray arrayWithObjects:workout1, workout2, workout3, workout4, nil];
+    //}
+    
+    return workouts;
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,9 +109,8 @@
 
 - (void) addTapped: (id) sender {
     
-    NSDate* date = [NSDate date];
-    UIImage *defaultImage = [UIImage imageNamed:@"swim"];
-    WCMWorkoutDataDoc *newDoc = [[WCMWorkoutDataDoc alloc] initWithTitle:@"New Workout" distance:0.0 time:0.0 workoutDate:date thumbImage:defaultImage];
+    NSDate *newDate =  [NSDate date];
+    WCMWorkoutDataDoc *newDoc = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run (Outdoors)" distance:0 time:0 workoutDate:newDate thumbImage:[UIImage imageNamed:@"run.png"]];
     [_workouts addObject:newDoc];
 
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_workouts.count-1 inSection:0];
