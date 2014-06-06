@@ -19,7 +19,7 @@
 @end
 
 @implementation WCMMasterViewController
-@synthesize workouts = _workouts;
+@synthesize workoutsDb = _workoutsDb;
 
 - (void)awakeFromNib
 {
@@ -37,11 +37,28 @@
     self.navigationItem.rightBarButtonItem = addButton;
     self.title =@"Workouts";
     
-    NSMutableArray *workouts = [self loadBootstrapWorkoutData];
-    _workouts = workouts;
+   // NSMutableArray *workouts = [self loadBootstrapWorkoutData];
+   // _workouts = workouts;
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSManagedObjectContext * managedObjectContext = [self managedObjectContext];
+    NSFetchRequest *fetchReq = [[NSFetchRequest alloc] initWithEntityName:@"Workouts"];
+    self.workoutsDb = [[managedObjectContext executeFetchRequest:fetchReq error:nil] mutableCopy];
+    
+    [self.tableView reloadData];
+}
 
+- (NSManagedObjectContext *) managedObjectContext {
+    NSManagedObjectContext *context =nil;
+    id delegate=[[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+    
+}
 
 - (NSMutableArray *) loadBootstrapWorkoutData {
     NSMutableArray *workouts = [[NSMutableArray alloc] initWithCapacity: 10];
@@ -74,7 +91,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+/*
 - (void)insertNewObject:(id)sender
 {
     if (!_objects) {
@@ -83,7 +100,7 @@
     [_objects insertObject:[NSDate date] atIndex:0];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+}*/
 
 #pragma mark - Table View
 
@@ -94,29 +111,59 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _workouts.count;
+    return self.workoutsDb.count;
 }
-
+/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyBasicCell"];
     
-    WCMWorkoutDataDoc *workout = [self.workouts objectAtIndex:indexPath.row];
+    WCMWorkoutDataDoc *workout = [self.workoutsDb objectAtIndex:indexPath.row];
     cell.textLabel.text = workout.data.title;
     cell.imageView.image = workout.thumbImage;
+    return cell;
+}*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"MyBasicCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    // Configure the cell...
+    NSManagedObject *wOut = [self.workoutsDb objectAtIndex:indexPath.row];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@", [wOut valueForKey:@"workoutType"], [wOut valueForKey:@"workoutDate"]]];
+    NSString* wkType = [wOut valueForKey:@"workoutType"];
+    if ([wkType  isEqual:@"Run (Outdoors)"]) {
+        cell.imageView.image = [UIImage imageNamed:@"run.png"];
+    }else if ([wkType  isEqual:@"Run (Treadmill)"]) {
+        cell.imageView.image = [UIImage imageNamed:@"run.png"];
+    } else if ([wkType  isEqual:@"Swim"]) {
+        cell.imageView.image = [UIImage imageNamed:@"swim.png"];
+    }else if ([wkType  isEqual:@"WeightLift"]) {
+        cell.imageView.image = [UIImage imageNamed:@"weightlift.png"];
+    }else if ([wkType  isEqual:@"Cycling"]) {
+        cell.imageView.image = [UIImage imageNamed:@"bike.png"];
+    }else if ([wkType  isEqual:@"Spin Class"]) {
+        cell.imageView.image = [UIImage imageNamed:@"bike.png"];
+    }else if ([wkType  isEqual:@"Stationary Bike"]) {
+        cell.imageView.image = [UIImage imageNamed:@"bike.png"];
+    }else if ([wkType  isEqual:@"Yoga"]) {
+        cell.imageView.image= [UIImage imageNamed:@"weightlift.png"];
+    }
+    
     return cell;
 }
 
 - (void) addTapped: (id) sender {
     
-    NSDate *newDate =  [NSDate date];
-    WCMWorkoutDataDoc *newDoc = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run (Outdoors)" distance:0 time:0 workoutDate:newDate thumbImage:[UIImage imageNamed:@"run.png"]];
-    [_workouts addObject:newDoc];
+    //NSDate *newDate =  [NSDate date];
+    //WCMWorkoutDataDoc *newDoc = [[WCMWorkoutDataDoc alloc ] initWithTitle:@"Run (Outdoors)" distance:0 time:0 workoutDate:newDate thumbImage:[UIImage imageNamed:@"run.png"]];
+    //[_workouts addObject:newDoc];
 
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_workouts.count-1 inSection:0];
-    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
-    [self.tableView insertRowsAtIndexPaths: indexPaths withRowAnimation:YES];
-    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_workouts.count-1 inSection:0];
+ //   NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+  //  [self.tableView insertRowsAtIndexPaths: indexPaths withRowAnimation:YES];
+   // [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
     [self performSegueWithIdentifier:@"MySegue" sender:self];
 }
 
@@ -128,11 +175,24 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        // Delete object from database
+        [context deleteObject:[self.workoutsDb objectAtIndex:indexPath.row]];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Can't Delete! %@ %@", error, [error localizedDescription]);
+            return;
+        }
+        
+        // Remove device from table view
+        [self.workoutsDb removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
+
 -(void)didMoveToParentViewController:(UIViewController *)parent{
     [self.tableView reloadData];
 }
@@ -156,9 +216,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    WCMDetailViewController *detailController = segue.destinationViewController;
-    WCMWorkoutDataDoc *data = [self.workouts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-    detailController.detailItem = data;
+    if ([[segue identifier] isEqualToString:@"UpdateWorkout"]) {
+        NSManagedObject *selectedData = [self.workoutsDb objectAtIndex:[[self.tableView indexPathForSelectedRow] row]];
+        WCMDetailViewController *detailController = segue.destinationViewController;
+        detailController.detailItem = selectedData;
+    }
+    //WCMDetailViewController *detailController = segue.destinationViewController;
+    //WCMWorkoutDataDoc *data = [self.workouts objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+  //  detailController.detailItem = data;
 }
 
 @end

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Workouts" syncable="YES">
+        <attribute name="workoutComments" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="workoutDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="workoutDeleted" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="workoutDistance" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="workoutDuration" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="workoutId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="workoutMapCoordinates" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="workoutNotes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="workoutPlace" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="workoutShareable" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="workoutSynched" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="workoutType" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Workouts" positionX="-54" positionY="-9" width="128" height="225"/>
+    </elements>
+</model>

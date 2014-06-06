@@ -15,9 +15,11 @@ dispatch_queue_t concurrentQueue;
 
 @interface WCMDetailViewController : UIViewController<UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
     }
+@property (strong, nonatomic) NSManagedObject *detailItemDB;
 @property (strong, nonatomic) WCMWorkoutDataDoc *detailItem;
 //@property  (strong, nonatomic ) UIPickerView       *workoutTypePicker;
 @property  (strong, nonatomic ) NSArray            *workoutNames;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UITextField *workoutTypeField;

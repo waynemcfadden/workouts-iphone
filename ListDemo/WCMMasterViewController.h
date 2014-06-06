@@ -10,4 +10,5 @@
 
 @interface WCMMasterViewController : UITableViewController
 @property (strong) NSMutableArray *workouts;
+@property (strong) NSMutableArray *workoutsDb;
 @end

@@ -16,18 +16,61 @@
 @end
 
 @implementation WCMDetailViewController
+@synthesize detailItemDB;
 
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(id)newDetailItem
 {
-    NSLog(@"New detail item:");
+    NSLog(@"Entry: set detail item");
     if (_detailItem != newDetailItem) {
         _detailItem = newDetailItem;
-        
+    NSLog(@"New detail item is null");
         // Update the view.
         [self configureView];
     }
+}
+
+
+- (IBAction)save:(id)sender {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSLog(@"Entry Save");
+    
+    // Create a new managed object
+    NSManagedObject *newItem = [NSEntityDescription insertNewObjectForEntityForName:@"Workouts" inManagedObjectContext:context];
+    int myTime= [self.timeField.text intValue];
+     NSNumber *tNumber = [NSNumber numberWithInt:[self minutesToMilliseconds:myTime]];
+     NSNumber *dist = [NSNumber numberWithDouble:[self.distanceField.text doubleValue]];
+    
+    [newItem setValue:tNumber forKey:@"workoutDuration"];
+    [newItem setValue:dist forKey:@"workoutDistance"];
+    [newItem setValue:self.workoutTypeField.text forKey:@"workoutType"];
+    
+    NSLog(@"Date value is: %@ ", self.detailItem.data.workoutDate);
+    
+    [newItem setValue:self.detailItem.data.workoutDate forKey:@"workoutDate"];
+    [newItem setValue:NO forKey:@"workoutSynched"];
+    [newItem setValue:NO forKey:@"workoutDeleted"];
+   // [newItem setValue:"" forKey:@"workoutComments"];
+    NSString *uuid = [[NSUUID UUID] UUIDString];
+    [newItem setValue:uuid forKey:@"workoutId"];
+    //[newItem setValue:NO forKey:@"workoutMapCoordinates"];
+    //[newItem setValue:NO forKey:@"workoutNotes"];
+    //[newItem setValue:NO forKey:@"workoutSynchPlace"];
+    [newItem setValue:NO forKey:@"workoutShareable"];
+    NSError *error = nil;
+    // Save the object to persistent store
+    if (![context save:&error]) {
+        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
+    }
+     [self.navigationController popViewControllerAnimated:YES];
+   // [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)cancel:(id)sender {
+    NSLog(@"Entry Cancel");
+     [self.navigationController popViewControllerAnimated:YES];
+    //[self dismissViewControllerAnimated:YES  completion:nil];
 }
 
 - (void)configureView
@@ -35,7 +78,7 @@
     // Update the user interface for the detail item.
 
     if (self.detailItem) {
-        NSLog(@"Entry detail item: %@", self.detailItem.data.title );
+        NSLog(@"Entry configure view for : %@", self.detailItem.data.title );
         self.detailDescriptionLabel.text = [self.detailItem description];
         self.workoutTypeField.text = self.detailItem.data.title;
         double timeD = [self millisecondsToMinutes:self.detailItem.data.time] ;
@@ -56,7 +99,7 @@
         [dateFormatter setTimeZone:[NSTimeZone defaultTimeZone]];
         [dateFormatter setDateStyle:NSDateFormatterShortStyle]; // example: 4/13/10
        // NSLog(@"Date:", [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:self.detailItem.data.workoutDate]]);
-      //  NSLog(@"Todays date is %@", self.detailItem.data.workoutDate);
+         NSLog(@"Todays date is %@", self.detailItem.data.workoutDate);
         if (self.detailItem.data.workoutDate == nil) {
             
             self.workoutDateField.text =[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[NSDate date]]];
@@ -88,6 +131,7 @@
         NSLog(@"Distance %f", self.detailItem.data.distance);
     }
 }
+
 
 
 - (double) millisecondsToMinutes: (double) millis  {
@@ -220,7 +264,7 @@ numberOfRowsInComponent:(NSInteger)component
     //[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     picker.datePickerMode = UIDatePickerModeDate;
     NSString *formattedDateString = [dateFormatter stringFromDate:picker.date];
-    NSLog(@"updateTextField formattedDateString: %@", formattedDateString);
+    NSLog(@"-------- updateTextField formattedDateString: %@", formattedDateString);
     // Output for locale en_US: "formattedDateString: Jan 2, 2001".
     
     self.workoutDateField.text = [NSString stringWithFormat:@"%@",formattedDateString];
@@ -242,4 +286,17 @@ numberOfRowsInComponent:(NSInteger)component
     // e.g. self.myOutlet = nil;
     //self.workoutTypePicker = nil;
 }
+
+
+#pragma mark Start database persistance
+- (NSManagedObjectContext * )managedObjectContext {
+    NSManagedObjectContext *context = nil;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate performSelector:@selector(managedObjectContext)]) {
+        context = [delegate managedObjectContext];
+    }
+    return context;
+}
+
+
 @end

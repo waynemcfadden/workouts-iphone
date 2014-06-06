@@ -33,6 +33,8 @@
 		BE315F3A192580F2008B0C41 /* bike.png in Resources */ = {isa = PBXBuildFile; fileRef = BE315F36192580F2008B0C41 /* bike.png */; };
 		BE5EB2E5192D19110023D307 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5EB2E4192D19110023D307 /* QuartzCore.framework */; };
 		BE5EB2EF192D1DC80023D307 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = BE5EB2EE192D1DC80023D307 /* SVProgressHUD.m */; };
+		BEF5A9831940D6940058D63E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEF5A9821940D6940058D63E /* CoreData.framework */; };
+		BEF5A9861940D6A50058D63E /* Workouts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BEF5A9841940D6A50058D63E /* Workouts.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		BE5EB2E4192D19110023D307 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BE5EB2ED192D1DC00023D307 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		BE5EB2EE192D1DC80023D307 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		BEF5A9821940D6940058D63E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		BEF5A9851940D6A50058D63E /* Workouts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Workouts.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEF5A9831940D6940058D63E /* CoreData.framework in Frameworks */,
 				BE5EB2E5192D19110023D307 /* QuartzCore.framework in Frameworks */,
 				BE315EF6192529D7008B0C41 /* CoreGraphics.framework in Frameworks */,
 				BE315EF8192529D7008B0C41 /* UIKit.framework in Frameworks */,
@@ -123,6 +128,7 @@
 		BE315EE7192529D7008B0C41 = {
 			isa = PBXGroup;
 			children = (
+				BEF5A9841940D6A50058D63E /* Workouts.xcdatamodeld */,
 				BE43BB05192D09990015416A /* Art */,
 				BE315EF9192529D7008B0C41 /* ListDemo */,
 				BE315F1B192529D7008B0C41 /* ListDemoTests */,
@@ -143,6 +149,7 @@
 		BE315EF2192529D7008B0C41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BEF5A9821940D6940058D63E /* CoreData.framework */,
 				BE5EB2E4192D19110023D307 /* QuartzCore.framework */,
 				BE315EF3192529D7008B0C41 /* Foundation.framework */,
 				BE315EF5192529D7008B0C41 /* CoreGraphics.framework */,
@@ -350,6 +357,7 @@
 				BE315F0A192529D7008B0C41 /* WCMMasterViewController.m in Sources */,
 				BE315F2F19254DA8008B0C41 /* WCMWorkoutData.m in Sources */,
 				BE5EB2EF192D1DC80023D307 /* SVProgressHUD.m in Sources */,
+				BEF5A9861940D6A50058D63E /* Workouts.xcdatamodeld in Sources */,
 				BE0C6F35193E82A500771B90 /* WCMMainScreenViewController.m in Sources */,
 				BE1982D2192FB65C00981F01 /* WCMWorkoutPickerViewController.m in Sources */,
 				BE315F0D192529D7008B0C41 /* WCMDetailViewController.m in Sources */,
@@ -571,6 +579,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BEF5A9841940D6A50058D63E /* Workouts.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BEF5A9851940D6A50058D63E /* Workouts.xcdatamodel */,
+			);
+			currentVersion = BEF5A9851940D6A50058D63E /* Workouts.xcdatamodel */;
+			path = Workouts.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = BE315EE8192529D7008B0C41 /* Project object */;
 }
